@@ -1,0 +1,20 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+<!-- README.md is generated from README.Rmd. -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  engine = 'python',
+  fig.path = "README-"
+)
+```
+
+# Python for Data Analysis
+
+Learning Note on book `Python for Data Analysis`.
