@@ -131,7 +131,11 @@ Reading and Writing Data in Text Format
 </tbody>
 </table>
 
+<<<<<<< HEAD
 -   Q: How to specify a index\_col while still kepping the column in DataFrame?
+=======
+    - Q: How to specify a index\_col while still kepping the column in DataFrame?
+>>>>>>> a05b8e730f0cbdc8f66a7f4d107f55aad5302f85
 
 Manually Working with Delimited Formats
 ---------------------------------------

@@ -52,7 +52,11 @@ encoding | Text encoding for unicode. For example 'utf-8' for UTF-8 encoded text
 squeeze | If the parsed data only contains one column return a Series
 thousands | Separator for thousands, e.g. ',' or '.'
 
+<<<<<<< HEAD
 + Q: How to specify a index\_col while still kepping the column in DataFrame?
+=======
+    - Q: How to specify a index\_col while still kepping the column in DataFrame?
+>>>>>>> a05b8e730f0cbdc8f66a7f4d107f55aad5302f85
 
 ## Manually Working with Delimited Formats
 
