@@ -240,7 +240,7 @@ Essential Functionally
 
     data.ix['row-index'<, 'col-index'>]
 
-    - Indexing options with DataFrame
+-   Indexing options with DataFrame
 
 <table style="width:15%;">
 <colgroup>
