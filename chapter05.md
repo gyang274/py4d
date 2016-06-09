@@ -185,45 +185,48 @@ Essential Functionally
 
     -   `reindex` function arguments
 
-    <table style="width:29%;">
-    <colgroup>
-    <col width="12%" />
-    <col width="16%" />
-    </colgroup>
-    <thead>
-    <tr class="header">
-    <th align="left">Argument</th>
-    <th align="left">Description</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr class="odd">
-    <td align="left">index</td>
-    <td align="left">New sequence to use as index. Can be Index instance or any other sequence-like Python data structure. An Index will be used exactly as is without any copying</td>
-    </tr>
-    <tr class="even">
-    <td align="left">method</td>
-    <td align="left">Interpolation (fill) method, <code>ffill</code> or <code>pad</code> to fill (or carry) values forward, <code>bfill</code> or <code>backfill</code> to fill (or carry) values backward.</td>
-    </tr>
-    <tr class="odd">
-    <td align="left">fill_value</td>
-    <td align="left">Substitute value to use when introducing missing data by reindexing</td>
-    </tr>
-    <tr class="even">
-    <td align="left">limit</td>
-    <td align="left">When forward- or backfilling, maximum size gap to fill</td>
-    </tr>
-    <tr class="odd">
-    <td align="left">level</td>
-    <td align="left">Match simple Index on level of MultiIndex, otherwise select subset of copy Do not copy underlying data if new index is equivalent to old index. True by default (i.e. always copy data).</td>
-    </tr>
-    </tbody>
-    </table>
+<table style="width:29%;">
+<colgroup>
+<col width="12%" />
+<col width="16%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Argument</th>
+<th align="left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">index</td>
+<td align="left">New sequence to use as index. Can be Index instance or any other sequence-like Python data structure. An Index will be used exactly as is without any copying</td>
+</tr>
+<tr class="even">
+<td align="left">method</td>
+<td align="left">Interpolation (fill) method, <code>ffill</code> or <code>pad</code> to fill (or carry) values forward, <code>bfill</code> or <code>backfill</code> to fill (or carry) values backward.</td>
+</tr>
+<tr class="odd">
+<td align="left">fill_value</td>
+<td align="left">Substitute value to use when introducing missing data by reindexing</td>
+</tr>
+<tr class="even">
+<td align="left">limit</td>
+<td align="left">When forward- or backfilling, maximum size gap to fill</td>
+</tr>
+<tr class="odd">
+<td align="left">level</td>
+<td align="left">Match simple Index on level of MultiIndex, otherwise select subset of copy Do not copy underlying data if new index is equivalent to old index. True by default (i.e. always copy data).</td>
+</tr>
+</tbody>
+</table>
 
-    -   reindexing can be done more succinctly by label-indexing with `ix`.
+    - reindexing can be done more succinctly by label-indexing with `ix`.
+
 -   Dropping entries from an axis
 
-`data.drop([index])` is default on dropping row index, dropping column index must specifiy `axis=1`. This is inconsistent with latter indexing, selection and filtering, which is default on indexing and slicing column index, and selecting row index must specifiy `.ix`.
+    `data.drop([index])` is default on dropping row index, dropping column index must specifiy `axis=1`. This is inconsistent with latter indexing, selection and filtering, which is default on indexing and slicing column index, and selecting row index must specifiy `.ix`.
+
+<!-- -->
 
     data.drop(['row-index'])
 

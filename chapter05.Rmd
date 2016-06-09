@@ -86,19 +86,19 @@ unique | Compute the array of unique values in the Index
 
     - `reindex` function arguments
     
-    Argument | Description
-    -------- | -----------
-    index | New sequence to use as index. Can be Index instance or any other sequence-like Python data structure. An Index will be used exactly as is without any copying
-    method | Interpolation (fill) method, `ffill` or `pad` to fill (or carry) values forward, `bfill` or `backfill` to fill (or carry) values backward.
-    fill_value | Substitute value to use when introducing missing data by reindexing
-    limit | When forward- or backfilling, maximum size gap to fill
-    level | Match simple Index on level of MultiIndex, otherwise select subset of copy Do not copy underlying data if new index is equivalent to old index. True by default (i.e. always copy data).
+Argument | Description
+-------- | -----------
+index | New sequence to use as index. Can be Index instance or any other sequence-like Python data structure. An Index will be used exactly as is without any copying
+method | Interpolation (fill) method, `ffill` or `pad` to fill (or carry) values forward, `bfill` or `backfill` to fill (or carry) values backward.
+fill_value | Substitute value to use when introducing missing data by reindexing
+limit | When forward- or backfilling, maximum size gap to fill
+level | Match simple Index on level of MultiIndex, otherwise select subset of copy Do not copy underlying data if new index is equivalent to old index. True by default (i.e. always copy data).
 
     - reindexing can be done more succinctly by label-indexing with `ix`.
     
 + Dropping entries from an axis 
 
-`data.drop([index])` is default on dropping row index, dropping column index must specifiy `axis=1`. This is inconsistent with latter indexing, selection and filtering, which is default on indexing and slicing column index, and selecting row index must specifiy `.ix`.
+    `data.drop([index])` is default on dropping row index, dropping column index must specifiy `axis=1`. This is inconsistent with latter indexing, selection and filtering, which is default on indexing and slicing column index, and selecting row index must specifiy `.ix`.
 
 ```
 data.drop(['row-index'])
