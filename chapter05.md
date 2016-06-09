@@ -183,6 +183,8 @@ Essential Functionally
 
 -   Reindexing
 
+    -   reindexing can be done more succinctly by label-indexing with `ix`.
+
     -   `reindex` function arguments
 
         <table style="width:29%;">
@@ -220,11 +222,9 @@ Essential Functionally
         </tbody>
         </table>
 
-    -   reindexing can be done more succinctly by label-indexing with `ix`.
-
 -   Dropping entries from an axis
 
-    `data.drop([index])` is default on dropping row index, dropping column index must specifiy `axis=1`. This is inconsistent with latter indexing, selection and filtering, which is default on indexing and slicing column index, and selecting row index must specifiy `.ix`.
+    -   `data.drop([index])` is default on dropping row index, dropping column index must specifiy `axis=1`. This is inconsistent with latter indexing, selection and filtering, which is default on indexing and slicing column index, and selecting row index must specifiy `.ix`.
 
 <!-- -->
 
@@ -240,7 +240,7 @@ Essential Functionally
 
     data.ix['row-index'<, 'col-index'>]
 
-Indexing options with DataFrame
+    - Indexing options with DataFrame
 
 <table style="width:15%;">
 <colgroup>
