@@ -1,0 +1,188 @@
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+<!-- README.md is generated from README.Rmd. -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  engine = 'python',
+  fig.path = "README-"
+)
+```
+
+# data wrangling
+
+## Combining and Merging Data Sets
+
++ `pandas.merge` connects rows in DataFrames based on one or more keys. It implements database `join` operations.
+
+    - `pd.merge(df1, df2, on=['key' or 'keys'])` default is on all overlapping column names as the keys.
+    
+    - `pd.merge(df3, df4, left_on='lkey', right_on='rkey')` when column names are different in each object.
+    
+    - `pd.merge` does an 'inner' join by default, passing `how=<'left'|'right'|'outer'>` options for 'left', 'right', and 'outer' join.
+    
+    - `pd.merge` has a `suffixes` option for specifying strings to append to overlapping names in the left and right DataFrame objects.
+    
++ `pandas.merge` function arguments
+
+Argument | Description
+-------- | -----------
+left | DataFrame to be merged on the left side
+right | DataFrame to be merged on the right side
+how | One of 'inner', 'outer', 'left' or 'right'. 'inner' by default
+on | Column names to join on. Must be found in both DataFrame objects. If not specified and no other join keys given, will use the intersection of the column names in left and right as the join keys
+left\_on | Columns in left DataFrame to use as join keys
+right\_on | Analogous to left\_on for left DataFrame
+left_index | Use row index in left as its join key (or keys, if a MultiIndex)
+right\_index | Analogous to left_index
+sort | Sort merged data lexicographically by join keys; True by default. _Disable to get better performance in some cases on large datasets_
+suffixes | Tuple of string values to append to column names in case of overlap; defaults to ('\_x', '\_y'). For example, if 'data' in both DataFrame objects, would appear as 'data\_x' and 'data\_y' in result
+copy | If False, avoid copying data into resulting data structure in some exceptional cases. By default always copies
+
+## Concatenating Along an Axis
+
++ `numpy.concatenate`.
+
++ `pandas.concat`: `pd.concat([s1, s2, s3], axis=1)` default is along `axis=0`.
+
++ `pandas.concat` function arguments
+
+Argument | Description
+-------- | -----------
+objs | List or dict of pandas objects to be concatenated. The only required argument
+axis | Axis to concatenate along; defaults to 0
+join | One of 'inner', 'outer', defaulting to 'outer'; whether to intersection (inner) or union (outer) together indexes along the other axes
+join\_axes | Specific indexes to use for the other n-1 axes instead of performing union/intersection logic 
+keys | Values to associate with objects being concatenated, forming a hierarchical index along the concatenation axis. Can either be a list or array of arbitrary values, an array of tuples, or a list of arrays (if multiple level arrays passed in levels)
+levels | Specific indexes to use as hierarchical index level or levels if keys passed
+names | Names for created hierarchical levels if keys and / or levels passed
+verify\_integrity | Check new axis in concatenated object for duplicates and raise exception if so. By default (False) allows duplicates
+ignore\_index | Do not preserve indexes _along concatenation axis_, instead producing a new range(total\_length) index
+
+## Combining Data with Overlap
+
++ `combine_first` on Series `a.combine_first(b)` is like `np.where(pd.isnull(a), b, a)`.
+
++ `combine_first` on DataFrames does the same thing column by column, think it as "patching" missing data in the calling object with data from the object passed.
+
+## Reshaping and Pivoting
+
++ Reshaping with Hierarchical Indexing:
+
+    - `stack`: rotates or pivots from the columns in the data to the rows. Stacking filters out missing data by default, yet can keep it by passing `dropna=False`.
+    
+    - `unstack`: pivots from the rows into the columns. The innermost level is unstacked (same with stack) by default, yet can unstack a different level by passing a level number or name.
+    
++ Pivoting "long" to "wide" Format
+
+    - `pivot`: convert long format data into wide format: `ldata.pivot('row-index', 'col-index', ['val-index'])`, val-index is optional, without it multiple values will be filled in as outer column index.
+    
+    - `pivot` is just a shortcut for creating a hierarchical index using `set_index` and reshaping with `unstack`: `ldata.pivot('row-index', 'col-index')` is equivalent to `ldata.set_index(['row-index', 'col-index']).unstack('col-index')`.
+    
+## Data Transformation
+
++ Removing Duplicates
+
+    - The DataFrame method `duplicated` returns a boolean Series indicating whether each row is a duplicate or not. 
+    
+    - Relatedly, `drop_duplicates` returns a DataFrame where the `duplicated` array is `True`.
+
+    - Both of these methods consider all of the columns by default; alternatively one can specify any subset of columns to detect duplicates.
+    
+    - Both of these methods keep the first observed value combination by default. Passing `take_last=True` will return the last one.
+    
++ Transforming Data Using a Function or Mapping
+
+    - The Series method `map` accepts a function or dict-like object containing a mapping.
+    
+    - The Series method `replace` provide a simpler way of replacing one or several values: `data.replace(['list-of-value-to-be-replaced'], ['one-or-list-of-value-in-replacing'])`, can also pass a dict as argument.
+    
++ Renaming Axis Indexes
+
+    - The axis indexes have a `map` method like Series. 
+    
+    - Modify the DataFrame in place by assigning to index.
+    
+    - The DataFrame method `rename` create a transformed version of a data set without modifying the original.
+
+    - The `rename` method can be used in conjunction with a dict-like object providing new values for a subset of the axis labels.
+    
+    - The `rename` copies the DataFrame manually and assign to its index and columns attributes, pass `inplace=True` to modify a data set in place.
+    
++ Discretization and Binning
+
+    - The `pandas.cut` method works like `R cut`.
+    
+    - The `pandas.qcut` method work like `R cut` but on quantiles or percentiles.
+    
++ Permutation and Random Sampling
+
+    - `numpy.random.permutation` can be used to produce an array of integers indicating the new ordering.
+    
+    - `numpy.random.randint` draws random integers and can be used to generate a sample with replacement.
+    
++ Computing Indicator/Dummy Variables
+
+    - `pandas.get_dummies` function can convert a categorical variable into a dummy or indicator matrix: if a column in a DataFrame has k distinct values, it derives a matrix or DataFrame containing k columns containing all 1's and 0's.  
+    
+    - `pandas.get_dummies` can be passed prefix to the columns in the indicator DataFrame: `pd.get_dummies(df['key'], prefix='key')`.
+    
+    - Use `set`, `set.union`, `enumerate` and `pandas.get_dummies` create dummy matrix when a row in a DataFrame can belong to multiple categories.
+    
+## String Manipulation
+
++ String Object Methods (string)
+    
+Argument | Description
+-------- | -----------
+count | Return the number of non-overlapping occurrences of substring in the string.
+endswith, startswith | Returns True if string ends with suffix (starts with prefix).
+join | Use string as delimiter for concatenating a sequence of other strings.
+index | Return position of first character in substring if found in the string. Raises ValueError if not found.
+find | Return position of first character of first occurrence of substring in the string. Like index, but returns -1 if not found.
+rfind | Return position of first character of last occurrence of substring in the string. Returns -1 if not found.
+replace | Replace occurrences of string with another string.
+strip, rstrip, lstrip | Trim whitespace, including newlines; equivalent to x.strip() (and rstrip, lstrip, respectively) for each element.
+split | Break string into list of substrings using passed delimiter.
+lower, upper | Convert alphabet characters to lowercase or uppercase, respectively.
+ljust, rjust | Left justify or right justify, respectively. Pad opposite side of string with spaces (or some other fill character) to return a string with a minimum width.
+
++ Regular Expressions Methods (re)
+    
+Argument | Description
+-------- | -----------
+findall, finditer | Return all non-overlapping matching patterns in a string. findall returns a list of all patterns while finditer returns them one by one from an iterator.
+match | Match pattern at start of string and optionally segment pattern components into groups. If the pattern matches, returns a match object, otherwise None.
+search | Scan string for match to pattern; returning a _match object_ if so. Unlike match, the match can be anywhere in the string as opposed to only at the beginning.
+split | Break string into pieces at each occurrence of pattern.
+sub, subn | Replace all (sub) or first n occurrences (subn) of pattern in string with replacement expression. Use symbols \\1, \\2, ... to refer to match group elements in the replacement string.
+
++ Vectorized string methods in pandas
+
+String and regular expression methods can be applied (passing a lambda or other function) to each value using `data.map`, but it will fail on the NA. To cope with this, Series has concise methods for string operations that skip NA values. These are accessed through Series's `str` attribute.
+    
+Method | Description
+------ | -----------
+cat | Concatenate strings element-wise with optional delimiter
+contains | Return boolean array if each string contains pattern/regex
+count | Count occurrences of pattern
+endswith, startswith | Equivalent to x.endswith(pattern) or x.startswith(pattern) for each element.
+findall | Compute list of all occurrences of pattern/regex for each string
+get | Index into each element (retrieve i-th element)
+join | Join strings in each element of the Series with passed separator
+len | Compute length of each string
+lower, upper | Convert cases; equivalent to x.lower() or x.upper() for each element.
+match | Use re.match with the passed regular expression on each element, returning matched groups as list.
+pad | Add whitespace to left, right, or both sides of strings
+center | Equivalent to pad(side='both')
+repeat | Duplicate values; for example s.str.repeat(3) equivalent to x * 3 for each string.
+replace | Replace occurrences of pattern/regex with some other string
+slice | Slice each string in the Series.
+split | Split strings on delimiter or regular expression
+strip, rstrip, lstrip | Trim whitespace, including newlines; equivalent to x.strip() (and rstrip, lstrip, respectively) for each element.
