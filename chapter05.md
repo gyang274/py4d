@@ -238,7 +238,7 @@ Essential Functionally
 
     data['col-index']
 
-    data.ix['row-index'<, 'col-index'>]
+    data.ix['row-index', <'col-index'>]
 
 -   Indexing options with DataFrame
 
